@@ -9,7 +9,7 @@ import {
   useState,
 } from 'react';
 import { useToast } from '../../hooks/use-toast';
-import { generateAIRoadmapFromText, renderFlowJSON } from '@roadmapsh/editor';
+import { generateAIRoadmapFromText, renderFlowJSON } from '~/lib/editor-shim';
 import { replaceChildren } from '../../lib/dom';
 import {
   isLoggedIn,

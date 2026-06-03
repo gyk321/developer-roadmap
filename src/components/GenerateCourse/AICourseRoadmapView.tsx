@@ -1,6 +1,5 @@
 import '../GenerateRoadmap/GenerateRoadmap.css';
-import { renderFlowJSON } from '@roadmapsh/editor';
-import { generateAIRoadmapFromText } from '@roadmapsh/editor';
+import { renderFlowJSON, generateAIRoadmapFromText } from '~/lib/editor-shim';
 import {
   generateAICourseRoadmapStructure,
   readAIRoadmapStream,

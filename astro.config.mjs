@@ -88,8 +88,13 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        '~': new URL('./src', import.meta.url).pathname,
+      },
+    },
     ssr: {
-      noExternal: [/^@roadmapsh\/editor.*$/],
+      noExternal: [/^@roadmapsh\/dummy-editor.*$/],
     },
     server: {
       allowedHosts: ['roadmap.sh', 'port3k.kamranahmed.info'],

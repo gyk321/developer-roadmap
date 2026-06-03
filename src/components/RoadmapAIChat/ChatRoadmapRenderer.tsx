@@ -8,7 +8,7 @@ import {
 } from '../../lib/resource-progress';
 import { pageProgressMessage } from '../../stores/page';
 import { useToast } from '../../hooks/use-toast';
-import type { Edge, Node } from '@roadmapsh/editor';
+import type { Edge, Node } from '~/lib/editor-shim';
 import { isLoggedIn } from '../../lib/jwt';
 import { showLoginPopup } from '../../lib/popup';
 import { queryClient } from '../../stores/query-client';
@@ -16,7 +16,7 @@ import { userResourceProgressOptions } from '../../queries/resource-progress';
 import { useQuery } from '@tanstack/react-query';
 
 const Renderer = lazy(() =>
-  import('@roadmapsh/editor').then((mod) => ({
+  import('~/lib/editor-shim').then((mod) => ({
     default: mod.Renderer,
   })),
 );

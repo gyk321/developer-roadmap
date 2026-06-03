@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import '@roadmapsh/editor/style.css';
+@import '../lib/editor-shim.css';
 
 @config '../../tailwind.config.cjs';
 @plugin 'tailwind-scrollbar';

@@ -1,7 +1,7 @@
 import { queryOptions } from '@tanstack/react-query';
 import { httpGet } from '../lib/query-http';
 import { generateAICourseRoadmapStructure } from '../lib/ai';
-import { generateAIRoadmapFromText, renderFlowJSON } from '@roadmapsh/editor';
+import { generateAIRoadmapFromText, renderFlowJSON } from '~/lib/editor-shim';
 import { queryClient } from '../stores/query-client';
 import { aiLimitOptions } from '../queries/ai-course';
 import { readChatStream } from '../lib/chat';

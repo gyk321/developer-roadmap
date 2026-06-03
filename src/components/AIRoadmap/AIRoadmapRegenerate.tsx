@@ -17,7 +17,7 @@ import { queryClient } from '../../stores/query-client';
 import { httpPost } from '../../lib/query-http';
 import { aiRoadmapOptions } from '../../queries/ai-roadmap';
 import { UpdatePreferences } from '../GenerateGuide/UpdatePreferences';
-import { generateAIRoadmapFromText } from '@roadmapsh/editor';
+import { generateAIRoadmapFromText } from '~/lib/editor-shim';
 import { useToast } from '../../hooks/use-toast';
 import { showLoginPopup } from '../../lib/popup';
 import { isLoggedIn } from '../../lib/jwt';

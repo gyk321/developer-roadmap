@@ -12,7 +12,7 @@ import { ModalLoader } from './ModalLoader.tsx';
 import { UserProgressModalHeader } from './UserProgressModalHeader';
 import { X } from 'lucide-react';
 import type { AllowedRoadmapRenderer } from '../../lib/roadmap.ts';
-import { renderFlowJSON } from '@roadmapsh/editor';
+import { renderFlowJSON } from '~/lib/editor-shim';
 
 export type ProgressMapProps = {
   userId?: string;
