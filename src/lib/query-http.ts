@@ -35,13 +35,15 @@ type ApiReturn<ResponseType> = ResponseType;
  * @param url
  * @param options
  */
+const API_URL = import.meta.env.PUBLIC_API_URL || 'https://api.roadmap.sh';
+
 export async function httpCall<ResponseType = AppResponse>(
   url: string,
   options?: HttpOptionsType,
 ): Promise<ApiReturn<ResponseType>> {
   const fullUrl = url.startsWith('http')
     ? url
-    : `${import.meta.env.PUBLIC_API_URL}${url}`;
+    : `${API_URL}${url}`;
   try {
     let visitorId = '';
 
