@@ -11,6 +11,7 @@ import {
 import { httpGet } from '../../lib/http';
 import { getUrlParams } from '../../lib/browser.ts';
 import { RoadmapFloatingChat } from '../FrameRenderer/RoadmapFloatingChat.tsx';
+import type { Node, Edge } from '~/lib/editor-shim';
 
 type EditorRoadmapProps = {
   resourceId: string;
@@ -20,6 +21,8 @@ type EditorRoadmapProps = {
     width: number;
     height: number;
   };
+  nodes?: Node[];
+  edges?: Edge[];
 };
 
 export function EditorRoadmap(props: EditorRoadmapProps) {
@@ -28,17 +31,30 @@ export function EditorRoadmap(props: EditorRoadmapProps) {
     resourceType = 'roadmap',
     dimensions,
     hasChat = true,
+    nodes,
+    edges,
   } = props;
 
+  const hasInitialData = !!(nodes && edges);
+
   const [hasSwitchedRoadmap, setHasSwitchedRoadmap] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!hasInitialData);
+  const [hasError, setHasError] = useState(false);
   const [roadmapData, setRoadmapData] = useState<
     Omit<RoadmapRendererProps, 'resourceId'> | undefined
-  >(undefined);
+  >(hasInitialData ? { nodes, edges } : undefined);
 
   const loadRoadmapData = async () => {
-    setIsLoading(true);
     const { r: switchRoadmapId } = getUrlParams();
+
+    // Skip client fetch if SSR already provided the data (avoids CORS issues on Vercel)
+    if (!switchRoadmapId && hasInitialData) {
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(true);
+    setHasError(false);
 
     const { response, error } = await httpGet<
       Omit<RoadmapRendererProps, 'resourceId'>
@@ -49,6 +65,7 @@ export function EditorRoadmap(props: EditorRoadmapProps) {
     if (error) {
       console.error(error);
       setIsLoading(false);
+      setHasError(true);
       return;
     }
 
@@ -79,10 +96,16 @@ export function EditorRoadmap(props: EditorRoadmapProps) {
         }
       >
         <div className="flex w-full justify-center">
-          <Spinner
-            className="h-6 w-6 animate-spin sm:h-12 sm:w-12"
-            isDualRing={false}
-          />
+          {hasError ? (
+            <p className="text-sm text-red-500">
+              Failed to load roadmap. Please try again later.
+            </p>
+          ) : (
+            <Spinner
+              className="h-6 w-6 animate-spin sm:h-12 sm:w-12"
+              isDualRing={false}
+            />
+          )}
         </div>
       </div>
     );
