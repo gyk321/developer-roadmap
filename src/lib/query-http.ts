@@ -43,7 +43,9 @@ export async function httpCall<ResponseType = AppResponse>(
 ): Promise<ApiReturn<ResponseType>> {
   const fullUrl = url.startsWith('http')
     ? url
-    : `${API_URL}${url}`;
+    : url.startsWith('undefined')
+      ? url.replace(/^undefined/, API_URL)
+      : `${API_URL}${url}`;
   try {
     let visitorId = '';
 

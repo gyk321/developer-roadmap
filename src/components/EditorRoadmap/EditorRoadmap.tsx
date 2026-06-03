@@ -48,6 +48,7 @@ export function EditorRoadmap(props: EditorRoadmapProps) {
 
     if (error) {
       console.error(error);
+      setIsLoading(false);
       return;
     }
 

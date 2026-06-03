@@ -40,7 +40,14 @@ export async function httpCall<
     const fingerprintPromise = await fp.load();
     const fingerprint = await fingerprintPromise.get();
 
-    const response = await fetch(url, {
+    const apiUrl = import.meta.env.PUBLIC_API_URL || 'https://api.roadmap.sh';
+    const fullUrl = url.startsWith('http')
+      ? url
+      : url.startsWith('undefined')
+        ? url.replace(/^undefined/, apiUrl)
+        : `${apiUrl}${url}`;
+
+    const response = await fetch(fullUrl, {
       credentials: 'include',
       ...options,
       headers: new Headers({
