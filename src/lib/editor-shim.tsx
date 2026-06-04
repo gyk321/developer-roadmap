@@ -305,7 +305,8 @@ function SvgRenderer(
 }
 
 export const Renderer = forwardRef(SvgRenderer);
-export const ReadonlyEditor = memo(SvgRenderer);
+const ReadonlyEditorForwarded = forwardRef(SvgRenderer);
+export const ReadonlyEditor = memo(ReadonlyEditorForwarded);
 
 // ── AI Helpers ──────────────────────────────────────────────────────────────
 
