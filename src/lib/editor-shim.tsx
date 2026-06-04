@@ -119,9 +119,9 @@ function renderEdgePath(edge: EdgeData, nodeMap: Map<string, NodeData>): string 
 
 // ── Main: renderFlowJSON ────────────────────────────────────────────────────
 
-export async function renderFlowJSON(
+export function renderFlowJSON(
   data: RoadmapData | { nodes: NodeData[]; edges: EdgeData[] },
-): Promise<SVGElement | null> {
+): SVGElement | null {
   const nodes: NodeData[] = Array.isArray(data?.nodes) ? data.nodes : [];
   const edges: EdgeData[] = Array.isArray(data?.edges) ? data.edges : [];
   if (nodes.length === 0) return null;
@@ -285,11 +285,11 @@ function SvgRenderer(
 
   useImperativeHandle(ref, () => containerRef.current as HTMLDivElement, []);
 
-  const render = useCallback(async () => {
+  const render = useCallback(() => {
     const el = containerRef.current;
     if (!el) return;
     el.innerHTML = '';
-    const svg = await renderFlowJSON(roadmap);
+    const svg = renderFlowJSON(roadmap);
     if (svg) {
       el.appendChild(svg);
       el.setAttribute('data-renderer', 'editor');
